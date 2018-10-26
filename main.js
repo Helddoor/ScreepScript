@@ -72,20 +72,20 @@ module.exports.loop = function () {
     //Respawn Creeps if insufficient
     if(Game.spawns[currentSpawn].memory.currentCreepAmount < Game.spawns[currentSpawn].memory.numberOfSetMinimumCreeps){
 
-      if(Game.spawns[currentSpawn].memory.currentHarvesters) {
+      if(Game.spawns[currentSpawn].memory.currentHarvesters < Game.spawns[currentSpawn].memory.numberOfMinimumHarvesters) {
         Game.spawns[currentSpawn].spawnHarvester(currentSpawn, 550);
       }
-      else if(Game.spawns[currentSpawn].memory.currentUpgrader) {
-        Game.spawns[currentSpawn].spawnUpgrader()(currentSpawn, 550);
+      else if(Game.spawns[currentSpawn].memory.currentUpgrader < Game.spawns[currentSpawn].memory.numberOfMinimumUpgraders) {
+        Game.spawns[currentSpawn].spawnUpgrader(currentSpawn, 550);
       }
-      else if(Game.spawns[currentSpawn].memory.currentBuilder) {
-        Game.spawns[currentSpawn].spawnBuilder()()(currentSpawn, 550);
+      else if(Game.spawns[currentSpawn].memory.currentBuilder < Game.spawns[currentSpawn].memory.numberOfMinimumBuilder) {
+        Game.spawns[currentSpawn].spawnBuilder(currentSpawn, 550);
       }
-      else if(Game.spawns[currentSpawn].memory.currentMeleeAttacker) {
-        Game.spawns[currentSpawn].spawnMeleeAttacker()()(currentSpawn, 500);
+      else if(Game.spawns[currentSpawn].memory.currentMeleeAttacker < Game.spawns[currentSpawn].memory.numberOfMinimumMeleeAttacker) {
+        Game.spawns[currentSpawn].spawnMeleeAttacker(currentSpawn, 500);
       }
-      else if(Game.spawns[currentSpawn].memory.currentRanger) {
-        Game.spawns[currentSpawn].spawnRanger()()(currentSpawn, 200);
+      else if(Game.spawns[currentSpawn].memory.currentRanger < Game.spawns[currentSpawn].memory.numberOfMinimumRanger) {
+        Game.spawns[currentSpawn].spawnRanger(currentSpawn, 200);
       //Update Spawn Info
       Game.spawns[currentSpawn].currentSpawnCreepsAndEnergy();
       }
