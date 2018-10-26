@@ -60,7 +60,7 @@ StructureSpawn.prototype.spawnHarvester =
     if(energy >= 200) {
       return this.spawnCreep([WORK, CARRY, MOVE],
         'Harvester' + Game.time,
-        {memory: {role: 'harvester', harvesting: false, sourceID: sourceID, moving: true, target: null}});
+        { memory: {role: 'harvester', harvesting: false, sourceID: sourceID, moving: true, target: null}});
     }
     else if(energy < 200) {
       console.log("err");
@@ -73,8 +73,8 @@ StructureSpawn.prototype.spawnUpgrader =
     function(sourceID, energy ) {
         if(energy >= 200) {
             return this.spawnCreep([WORK, CARRY, MOVE],
-              'Upgrader' + Game.time,
-              {memory: {role: 'upgrader', harvesting: false, sourceID: sourceID, moving: true, target: null}});
+              'Harvester' + Game.time,
+              { memory: {role: 'upgrader', harvesting: false, sourceID: sourceID, moving: true, target: null}});
         }
         else if(energy < 200) {
           console.log("err");
@@ -83,26 +83,12 @@ StructureSpawn.prototype.spawnUpgrader =
         }
     };
 
-  StructureSpawn.prototype.spawnBuilder =
-      function(sourceID, energy ) {
-          if(energy >= 200) {
-              return this.spawnCreep([WORK, CARRY, MOVE],
-                'Builder' + Game.time,
-                {memory: {role: 'builder', harvesting: false, sourceID: sourceID, moving: true, repair_: false, target: null}});
-          }
-          else if(energy < 200) {
-            console.log("err");
-              //console.log("using balanced spawnn");
-              //thii.spawnBlanceCustomCreep()
-          }
-      };
-
   StructureSpawn.prototype.spawnUpgrader =
       function(sourceID, energy ) {
           if(energy >= 200) {
               return this.spawnCreep([WORK, CARRY, MOVE],
                 'Harvester' + Game.time,
-                {memory: {role: 'builder', harvesting: false, sourceID: sourceID, moving: true, repair_: false, target: null}});
+                { memory: {role: 'harvester', harvesting: false, sourceID: sourceID, moving: true, target: null}});
           }
           else if(energy < 200) {
             console.log("err");
