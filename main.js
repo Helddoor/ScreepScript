@@ -21,6 +21,10 @@ module.exports.loop = function () {
             delete Memory.creeps[name];
         }
     }
+
+    //Set Minimum creeps
+    Game.spawns.Spawn1.setMinRoles(4, 4, 3, 0, 0);
+
     Game.spawns.Spawn1.memory.TicksToWaitForStatus = 10;
   }
 
@@ -28,9 +32,6 @@ module.exports.loop = function () {
   for(let name in Game.rooms) {
 	   towerDef.run(name);
   }
-
-  //Set Minimum creeps
-  Game.spawns.Spawn1.setMinRoles(4, 4, 3, 0, 0);
 
   //Run thorugh all Spawns
   for(let currentSpawn in Game.spawns){
