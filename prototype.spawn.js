@@ -23,16 +23,16 @@ StructureSpawn.prototype.currentSpawnCreepsAndEnergy =
     this.memory.currentEnergy = this.room.energyAvailable;
 
     //Creeps
-    this.memory.currentHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester' && creep.memory.sourceID == this.name);
-    this.memory.currentUpgrader = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.memory.sourceID == this.name);
-    this.memory.currentBuilder = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.sourceID == this.name);
-    this.memory.currentMeleeAttacker = _.filter(Game.creeps, (creep) => creep.memory.role == 'meleeAttacker' && creep.memory.sourceID == this.name);
-    this.memory.currentRanger = _.filter(Game.creeps, (creep) => creep.memory.role == 'ranger' && creep.memory.sourceID == this.name);
-    this.memory.currentCreepAmount = this.memory.currentHarvesters.length
-                                  + this.memory.currentUpgrader.length
-                                  + this.memory.currentBuilder.length
-                                  + this.memory.currentMeleeAttacker.length
-                                  + this.memory.currentRanger.length;
+    this.memory.currentHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester' && creep.memory.sourceID == this.name).length;
+    this.memory.currentUpgrader = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.memory.sourceID == this.name).length;
+    this.memory.currentBuilder = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.sourceID == this.name).length;
+    this.memory.currentMeleeAttacker = _.filter(Game.creeps, (creep) => creep.memory.role == 'meleeAttacker' && creep.memory.sourceID == this.name).length;
+    this.memory.currentRanger = _.filter(Game.creeps, (creep) => creep.memory.role == 'ranger' && creep.memory.sourceID == this.name).length;
+    this.memory.currentCreepAmount = this.memory.currentHarvesters
+                                  + this.memory.currentUpgrader
+                                  + this.memory.currentBuilder
+                                  + this.memory.currentMeleeAttacker
+                                  + this.memory.currentRanger;
     };
 
 //Create Creeps
