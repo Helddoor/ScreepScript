@@ -8,46 +8,25 @@ require('prototype.spawn')();
 
 module.exports.loop = function () {
   Game.spawns["Spawn1"].currentSpawnCreepsAndEnergy();
-  /*
+
   //Führt alle 10 Ticks aus
   Game.spawns.Spawn1.memory.TicksToWaitForStatus = Game.spawns.Spawn1.memory.TicksToWaitForStatus-1;
-
   if(Game.spawns.Spawn1.memory.TicksToWaitForStatus <= 0){
-    Game.spawns.Spawn1.memory.TicksToWaitForStatus = 10;
-  }*/
 
-  //Delete Memory
-  for (let name in Memory.creeps) {
-  // and checking if the creep is still alive
-      if (Game.creeps[name] == undefined) {
-           // if not, delete the memory entry
-          delete Memory.creeps[name];
-      }
+    //Delete Memory
+    for (let name in Memory.creeps) {
+    // and checking if the creep is still alive
+        if (Game.creeps[name] == undefined) {
+             // if not, delete the memory entry
+            delete Memory.creeps[name];
+        }
+    }
+    Game.spawns.Spawn1.memory.TicksToWaitForStatus = 10;
   }
 
   //Towers
   for(let name in Game.rooms) {
 	   towerDef.run(name);
-  }
-
-  //run creep
-  for(let name in Game.creeps) {
-    let creep = Game.creeps[name];
-    if(creep.memory.role == 'harvester') {
-        roleHarvester.run(creep);
-    }
-    else if(creep.memory.role == 'upgrader') {
-        roleUpgrader.run(creep);
-    }
-    else if(creep.memory.role == 'builder') {
-        roleBuilder.run(creep);
-    }
-    else if(creep.memory.role == 'meleeAttacker') {
-        roleMeleeAttack.run(creep);
-    }
-    else if (creep.memory.role == 'ranger') {
-        roleRanger.run(creep);
-    }
   }
 
   //Set Minimum creeps
@@ -77,7 +56,9 @@ module.exports.loop = function () {
     }
 
     //Info about Spawn and its Energy
-    Game.spawns[currentSpawn].currentSpawnCreepsAndEnergy();
+    if(Game.spawns.Spawn1.memory.TicksToWaitForStatus <= 0){
+      Game.spawns[currentSpawn].currentSpawnCreepsAndEnergy();
+    }
 
     //Energy
     Game.spawns[currentSpawn].memory.currentEnergy = Game.spawns[currentSpawn].room.energyAvailable;
@@ -104,6 +85,8 @@ module.exports.loop = function () {
       }
       else if(Game.spawns[currentSpawn].memory.currentRanger) {
         Game.spawns[currentSpawn].spawnRanger()()(currentSpawn, 200);
+      //Update Spawn Info
+      Game.spawns[currentSpawn].currentSpawnCreepsAndEnergy();
       }
     }
   }
