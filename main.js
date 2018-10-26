@@ -48,18 +48,35 @@ module.exports.loop = function () {
         roleRanger.run(creep);
     }
   }
+
 //new script
-/*
+if(false){ //temp
 //Set Minimum creeps
 Game.spawns.Spawn1.setMinRoles(5, 4, 2, 0, 0);
 
 //Run thorugh all Spawns
   for(let currentSpawn in Game.spawns){
-    //zählt Creeps in memory
-    let creepsAmount = 0;
-    for(let currentSpawnTemp in Game.spawns){
-      creepsAmount = creepsAmount + Game.spawns[currentSpawnTemp].memory.currentCreepAmount;
+    //Run Creeps
+    for(let name in Game.creeps) {
+      let creep = Game.creeps[name];
+      if(creep.memory.role == 'harvester') {
+          roleHarvester.run(creep);
+      }
+      else if(creep.memory.role == 'upgrader') {
+          roleUpgrader.run(creep);
+      }
+      else if(creep.memory.role == 'builder') {
+          roleBuilder.run(creep);
+      }
+      else if(creep.memory.role == 'meleeAttacker') {
+          roleMeleeAttack.run(creep);
+      }
+      else if (creep.memory.role == 'ranger') {
+          roleRanger.run(creep);
+      }
     }
+
+    Game.spawns[currentSpawn].currentSpawnCreepsAndEnergy();
 
     //Energy
     Game.spawns[currentSpawn].memory.currentEnergy = Game.spawns[currentSpawn].room.energyAvailable;
@@ -69,11 +86,11 @@ Game.spawns.Spawn1.setMinRoles(5, 4, 2, 0, 0);
       Game.spawns[currentSpawn].pos.y - 1.25,
       {align: 'left', opacity: 0.8});
 
-    //Respawn Creeps
-    if(creepsAmount < Game.creeps.length){
+    //Respawn Creeps if insufficient
+    if(Game.spawns["Spawn1"].memory.currentCreepAmount < Game.spawns["Spawnn1"].memory.numberOfSetMinimumCreeps){
 
       if(Game.spawns[currentSpawnTemp].memory.currentHarvesters) {
-        Game.spawns[currentSpawn].spawnHarvester();
+        Game.spawns[currentSpawn].spawnHarvester(currentSpawn, 200);
       }
       else if(Game.spawns[currentSpawnTemp].memory.currentUpgrader) {
 
@@ -92,11 +109,13 @@ Game.spawns.Spawn1.setMinRoles(5, 4, 2, 0, 0);
 
   }
 
-*/
+}
+
+
   var requiredEnergyToSpawn = 300;
   var numberOfMinimumHarvesters = 3;
   var numberOfMinimumUpgraders = 2;
-  var numberOfMinimumBuilder  = 2;
+  var numberOfMinimumBuilder  = 4;
   var numberOfMinimumMeleeAttacker  = 0;
   var numberOfMinimumRanger = 0;
 
