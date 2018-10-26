@@ -23,11 +23,11 @@ StructureSpawn.prototype.currentSpawnCreepsAndEnergy =
     this.memory.currentEnergy = this.room.energyAvailable;
 
     //Creeps
-    this.memory.currentHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    this.memory.currentUpgrader = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-    this.memory.currentBuilder = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-    this.memory.currentMeleeAttacker = _.filter(Game.creeps, (creep) => creep.memory.role == 'meleeAttacker');
-    this.memory.currentRanger = _.filter(Game.creeps, (creep) => creep.memory.role == 'ranger');
+    this.memory.currentHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester' && creep.memory.sourceID == this.name);
+    this.memory.currentUpgrader = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.memory.sourceID == this.name);
+    this.memory.currentBuilder = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.sourceID == this.name);
+    this.memory.currentMeleeAttacker = _.filter(Game.creeps, (creep) => creep.memory.role == 'meleeAttacker' && creep.memory.sourceID == this.name);
+    this.memory.currentRanger = _.filter(Game.creeps, (creep) => creep.memory.role == 'ranger' && creep.memory.sourceID == this.name);
     this.memory.currentCreepAmount = this.memory.currentHarvesters.length
                                   + this.memory.currentUpgrader.length
                                   + this.memory.currentBuilder.length
@@ -57,45 +57,72 @@ StructureSpawn.prototype.spawnBlanceCustomCreep =
 
 StructureSpawn.prototype.spawnHarvester =
   function(sourceID, energy ) {
-    if(energy >= 200) {
-      return this.spawnCreep([WORK, CARRY, MOVE],
+    if(energy >= 550) {
+      return this.spawnCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
         'Harvester' + Game.time,
-        { memory: {role: 'harvester', harvesting: false, sourceID: sourceID, moving: true, target: null}});
+        {memory: {role: 'harvester', harvesting: false, sourceID: sourceID, moving: true, target: null}});
     }
-    else if(energy < 200) {
+    else {
       console.log("err");
       //console.log("using balanced spawnn");
       //thii.spawnBlanceCustomCreep()
     }
   };
 
-StructureSpawn.prototype.spawnUpgrader =
-    function(sourceID, energy ) {
-        if(energy >= 200) {
-            return this.spawnCreep([WORK, CARRY, MOVE],
-              'Harvester' + Game.time,
-              { memory: {role: 'upgrader', harvesting: false, sourceID: sourceID, moving: true, target: null}});
-        }
-        else if(energy < 200) {
-          console.log("err");
-            //console.log("using balanced spawnn");
-            //thii.spawnBlanceCustomCreep()
-        }
+  StructureSpawn.prototype.spawnUpgrader =
+    function(sourceID, energy) {
+      if(energy >= 550) {
+        return this.spawnCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
+          'Upgrader' + Game.time,
+          {memory: {role: 'upgrader', harvesting: false, sourceID: sourceID, moving: true, target: null}});
+      }
+      else {
+        console.log("err");
+          //console.log("using balanced spawnn");
+          //thii.spawnBlanceCustomCreep()
+      }
     };
 
-  StructureSpawn.prototype.spawnUpgrader =
-      function(sourceID, energy ) {
-          if(energy >= 200) {
-              return this.spawnCreep([WORK, CARRY, MOVE],
-                'Harvester' + Game.time,
-                { memory: {role: 'harvester', harvesting: false, sourceID: sourceID, moving: true, target: null}});
-          }
-          else if(energy < 200) {
-            console.log("err");
-              //console.log("using balanced spawnn");
-              //thii.spawnBlanceCustomCreep()
-          }
-      };
+  StructureSpawn.prototype.spawnBuilder =
+    function(sourceID, energy) {
+      if(energy >= 550) {
+        return this.spawnCreep([WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
+          'Builder' + Game.time,
+          {memory: {role: 'builder', harvesting: false, sourceID: sourceID, moving: true, repair_: false, target: null}});
+      }
+      else {
+        console.log("err");
+          //console.log("using balanced spawnn");
+          //thii.spawnBlanceCustomCreep()
+      }
+    };
 
+  StructureSpawn.prototype.spawnMeleeAttacker =
+    function(sourceID, energy) {
+      if(energy >= 500) {
+        return this.spawnCreep([TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK, MOVE],
+          'MeleeAttacker' + Game.time,
+          {memory: {role: 'meleeAttacker', sourceID: sourceID, moving: true, target: null}});
+      }
+      else {
+        console.log("err");
+          //console.log("using balanced spawnn");
+          //thii.spawnBlanceCustomCreep()
+      }
+    };
+
+  StructureSpawn.prototype.spawnRanger =
+    function(sourceID, energy) {
+      if(energy >= 200) {
+        return this.spawnCreep([RANGED_ATTACK, MOVE],
+          'Ranger' + Game.time,
+          {memory: {role: 'ranger', sourceID: sourceID, moving: true, target: null}});
+      }
+      else {
+        console.log("err");
+          //console.log("using balanced spawnn");
+          //thii.spawnBlanceCustomCreep()
+      }
+    };
 
 }
